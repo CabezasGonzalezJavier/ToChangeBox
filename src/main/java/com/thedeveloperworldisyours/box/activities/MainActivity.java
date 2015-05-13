@@ -27,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
     private String[] mColorsArray = new String[Constans.NUMBER];
     private String[] mNewColorsArray = new String[Constans.NUMBER];
     private ImageAdapter mImageAdapter;
+    GridView mGridview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,10 @@ public class MainActivity extends ActionBarActivity {
 
         randonColors();
 
-        GridView gridview = (GridView) findViewById(R.id.activity_main_gridview);
+        mGridview = (GridView) findViewById(R.id.activity_main_gridview);
 
-        mImageAdapter = new ImageAdapter(this,mColors);
-        gridview.setAdapter(mImageAdapter);
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        paintGridView();
+        mGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 refresh(position);
@@ -48,10 +48,18 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    public void paintGridView(){
+        mImageAdapter = new ImageAdapter(this,mColors);
+        mGridview.setAdapter(mImageAdapter);
+    }
+
     public void refresh(int position){
         mImageAdapter.clear();
+        mNewColorsArray = new String[Constans.NUMBER];
         changeColor(position);
         paintListColorAgain();
+        paintGridView();
+        mColorsArray = mNewColorsArray;
     }
 
     public void randonColors(){

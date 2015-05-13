@@ -5,5 +5,5 @@ package com.thedeveloperworldisyours.box.Utils;
  */
 public class Constans {
 
-    public final static int NUMBER = 4;
+    public final static int NUMBER = 20;
 }
